@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "WOFOST_Test", "WOFOST_Test.pyproj", "{32180117-F0AC-4C3D-AC9A-2566F0101D6A}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "WOFOST_AP", "WOFOST_AP.pyproj", "{32180117-F0AC-4C3D-AC9A-2566F0101D6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

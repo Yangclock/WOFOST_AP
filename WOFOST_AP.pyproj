@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>32180117-f0ac-4c3d-ac9a-2566f0101d6a</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>WOFOST_Test.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>WOFOST_main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>WOFOST_Test</Name>
+    <Name>WOFOST_AP</Name>
     <RootNamespace>WOFOST_Test</RootNamespace>
     <TestFramework>Pytest</TestFramework>
     <InterpreterId>MSBuild|venv|$(MSBuildProjectFullPath)</InterpreterId>
@@ -26,7 +27,7 @@
     <Compile Include="load_meteorological_parameter.py" />
     <Compile Include="load_soil_water_parameter.py" />
     <Compile Include="optimize_parameter.py" />
-    <Compile Include="WOFOST_Test.py" />
+    <Compile Include="WOFOST_main.py" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="venv\">

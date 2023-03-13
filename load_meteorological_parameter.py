@@ -129,8 +129,8 @@ def ea_from_tdew(tdew):
 
 # 单点获取
 def main():
-    start_date = dt.date(2000, 1, 1)
-    end_date = dt.date(2020, 2, 2)
+    start_date = dt.date(2020, 1, 1)
+    end_date = dt.date(2022, 12, 1)
     latitude = 35.5
     longitude = 112.5
     powerdata = getnasadata(latitude, longitude, start_date, end_date)
@@ -187,11 +187,10 @@ def main():
                               'SNOWDEPTH': [np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN,
                                             np.NaN, 'SNOWDEPTH', 'cm']})
     dataexcel = pd.concat([excelhead, result], axis=0, ignore_index=True)
-    dataexcel.to_excel(r'C:\Users\Administrator\Desktop\NASA天气文件lat={},lon={}.xlsx'.format(latitude, longitude),
+    dataexcel.to_excel(r'D:\Desktop\WOFOST_Test\Meteorological_parameter\test_lat={},lon={}.xlsx'.format(latitude, longitude),
                        index=False, header=None)
     print('getNASA天气文件lat={},lon={}.xlsx successful'.format(latitude, longitude))
 
 
 if __name__ == '__main__':
     main()
-
