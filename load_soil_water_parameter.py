@@ -2,7 +2,7 @@ import numpy as np
 def soil_data(s, c, om, b=1.37, Rw=0):
     """  
     输入参数包括砂粒s、粘粒c、有机质含量om，土壤容重b和碎石子含量Rw(可选)
-    输出为永久萎蔫点pwp、田间持水量fc_v、饱和含水量sat_v、饱和最大渗透率Kb(mm/h)
+    输出为永久萎蔫点pwp、田间持水量fc_v、饱和含水量sat_v、饱和最大渗透率Kb(mm/h)单位变为（cm/day）
     """
     s = s  # sand % (0-100)
     c = c  # clay % (0-100)
@@ -33,11 +33,10 @@ def soil_data(s, c, om, b=1.37, Rw=0):
 
     # 饱和导水率mm/h
     y = (np.log(fc_v) - np.log(pwp))/(np.log(1500) - np.log(33))
-    Ks = 1930*(sat_v - fc_v)**(3 - y)
+    Ks = 1930*(np.abs(sat_v - fc_v))**(3 - y)
     # gravel校正导水率
     a = b/2.65
     kb_ks = (1-Rw)/(1-Rw*(1-3*a/2))
     Kb = kb_ks*Ks
+    Kb = 2.4*Kb
     return [pwp, fc_v, sat_v, Kb]
-
-soil_data(20,20,2.5,1.37,0.0)

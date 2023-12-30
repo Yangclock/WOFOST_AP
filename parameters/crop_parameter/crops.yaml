@@ -1,0 +1,6 @@
+available_crops:
+  - maize
+  - rapeseed
+  - rice
+  - wheat
+  - wheat_local

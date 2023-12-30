@@ -1,0 +1,33 @@
+Version: 1.0
+AgroManagement:
+- 2019-10-1:
+    CropCalendar:
+        crop_name: wheat_local
+        variety_name: Winter_wheat_103
+        crop_start_date: 2019-10-05
+        crop_start_type: sowing
+        crop_end_date: 
+        crop_end_type: maturity
+        max_duration: 300
+    TimedEvents:
+    -   event_signal: irrigate
+        name: Irrigation application table
+        comment: All irrigation amounts in cm
+        events_table:
+        - 2019-10-05: {amount: 10, efficiency: 0.7}
+        - 2019-11-05: {amount:  5, efficiency: 0.7}
+    -   event_signal: apply_npk
+        name: Timed N/P/K application table
+        comment: All fertilizer amounts in kg/ha
+        events_table:
+        - 2019-10-05: {N_amount: 6, P_amount: 5, K_amount: 5, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
+    StateEvents: 
+    -   event_signal: apply_npk
+        event_state: DVS
+        zero_condition: rising
+        name: DVS-based N/P/K application table
+        comment: all fertilizer amounts in kg/ha
+        events_table:
+            - 0.3: {N_amount : 3, P_amount: 0, K_amount: 0}
+            - 0.6: {N_amount: 3, P_amount: 0, K_amount: 0}
+            - 1.12: {N_amount: 21, P_amount: 0, K_amount: 0}

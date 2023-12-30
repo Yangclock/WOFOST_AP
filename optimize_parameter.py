@@ -18,7 +18,7 @@ sub_data = data_base_info.loc[data_base_info['试验地']==site,
                                'sa', 'cl', 'bd', 'som', '灌溉']]
 # 基本数据获取
 lon = sub_data.loc[sub_data['品种']==variety, ['经度']]  # 读取经度
-lat = sub_data.loc[sub_data['品种']==variety, ['维度']]  # 读取纬度 
+lat = sub_data.loc[sub_data['品种']==variety, ['维度']]  # 读取纬度
 SAND = sub_data.loc[sub_data['品种']==variety, ['sa']].iloc[0,0]  # 砂粒
 CLAY = sub_data.loc[sub_data['品种']==variety, ['cl']].iloc[0,0]  # 黏粒
 OM = sub_data.loc[sub_data['品种']==variety, ['som']].iloc[0,0]  # 有机质
@@ -53,6 +53,6 @@ weatherdataprovider = ExcelWeatherDataProvider(os.path.join(weather_dir,'NASA天
                                                             format(st_loc(lat.iloc[0,0]), st_loc(lon.iloc[0,0]))))
 wf = Wofost71_WLP_FD(parameters, weatherdataprovider, agromanagement)  # 定义模型
 wf.run_till_terminate()  # 运行模型直到终止
-output=pd.DataFrame(wf.get_output()).set_index('day')  
+output=pd.DataFrame(wf.get_output()).set_index('day')
 
 
