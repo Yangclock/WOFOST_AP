@@ -1,16 +1,22 @@
 # 敏感性分析
-from pcse.fileinput import CABOFileReader
-from pcse.fileinput import YAMLAgroManagementReader
-from pcse.models import Wofost71_WLP_FD
-from pcse.models import Wofost80_PP_beta
-from pcse.models import Wofost80_NWLP_FD_beta
-from pcse.base import ParameterProvider
-from pcse.fileinput import ExcelWeatherDataProvider
-import datetime
+import pcse
+import pandas as pd
+import matplotlib
+import yaml
 import os
-star=datetime.datetime.now()
-from load_soil_water_parameter import soil_data
+import datetime
+#模型
+from pcse.models import Wofost71_WLP_FD
+from pcse.models import Wofost80_NWLP_FD_beta
+#参数导入需要的函数
+from load_soil_water_parameter import soil_data #根据质地计算土壤参数
+from pcse.fileinput import YAMLCropDataProvider #导入YAML作物模型
+from pcse.fileinput import YAMLAgroManagementReader #导入YAML管理数据
+from pcse.fileinput import CABOFileReader #导入CABO格式数据
+from pcse.fileinput import ExcelWeatherDataProvider #导入Excel气象数据
+from pcse.base import ParameterProvider #参数整合
 
+start = datetime.datetime.now()
 def st_loc(num):
     """
     选取气象数据的时候标准化输入为0.5的分辨率
@@ -22,26 +28,18 @@ def st_loc(num):
         result = math.floor(num) + 0.5      
     return result
 
-
-site = '431700C202009222001'  # 位点
-crop_name = 'wheat_local'     # 作物类型
-variety_name = 'Winter_wheat_103'  # 品种
-data_dir = r'D:\\Desktop\\WOFOST_AP\\workspace'                # 工作路径
-weather_dir = r'D:\Desktop\WOFOST_AP\meteorological_parameter' # 气象数据路径
-crop_parameter_dir = 'D:\Desktop\WOFOST_AP\crop_parameter'     # 作物文件路径
-soil_parameter_dir = 'D:\Desktop\WOFOST_AP\soil_parameter'     # 土壤文件路径
-management_parameter_dir = 'D:\Desktop\WOFOST_AP\management_parameter' # 管理文件路径
+#--------------------------------------------------------
+#                     基础参数设置
+#--------------------------------------------------------
+data_dir = r'D:\\Desktop\\WOFOST_AP\\workspace'                     # 工作路径
+weather_dir = r'D:\Desktop\WOFOST_AP\parameters\meteorological_parameter' # 气象数据路径
+crop_parameter_dir = 'D:\Desktop\WOFOST_AP\parameters\crop_parameter'     # 作物文件路径
+soil_parameter_dir = 'D:\Desktop\WOFOST_AP\parameters\soil_parameter'     # 土壤文件路径
+management_parameter_dir = 'D:\Desktop\WOFOST_AP\parameters\management_parameter' # 管理文件路径
 para_dir = r'D:\\Desktop\\WOFOST_AP\\simlab_sensitivity_analysis'  # simlab输出的参数读取
+data_base_info = pd.read_excel(os.path.join(data_dir,'sample_point.xlsx'), sheet_name='Sheet1') # 模拟的位置
+row = data_base_info.iloc[0].tolist()
 
-# 模拟的位置
-data_base_info = pd.read_excel(os.path.join(data_dir,'sample_point.xlsx'), sheet_name='Sheet1')
-sub_data = data_base_info.loc[data_base_info['序号']==site, 
-                              ['序号','经度', '纬度', '品种',
-                               'SAND', 'SLAY', 'BULK_DENSITY', 'SOM','NAVAILI',
-                               'PAVAILI', 'KAVAILI']]
-lon = sub_data.loc[sub_data['序号']==site,['经度']]  # 读取经度
-lat = sub_data.loc[sub_data['序号']==site,['纬度']]  # 读取纬度
-# 更改参数列表
 # 创建播种日期的字典
 sow_date = dict(zip([i+1 for i in range(30)],[datetime.date(2019,10,i+1) for i in range(30)] ))
 # 要改变的数据
@@ -49,17 +47,12 @@ change_data = {'TBASEM':0,'TEFFMX':1,'TDWI':2,'LAIEM':3,'RGRLAI':4,'SPAN':8,'TBA
                'CVS':18,'Q10':19,'RML':20,'RMO':21,'RMR':22,'RMS':23,'PERDL':24,'CFET':27,'DEPNR':28,'RDI':29,
               'RRI':30,'RDMCR':31,'IFUNRN':32,'NOTINF':33,'SSI':34,'WAV':35,'SMLIM':36,'RDMSOL':37}
 # 读取模型参数
-weatherdataprovider = ExcelWeatherDataProvider(os.path.join(weather_dir,'NASA天气文件lat={0:.1f},lon={1:.1f}.xlsx'.
-                                                            format(st_loc(lat.iloc[0,0]), st_loc(lon.iloc[0,0]))))
-cropdata = YAMLCropDataProvider(crop_parameter_dir)
+weather_data = ExcelWeatherDataProvider(os.path.join(weather_dir,'NASA天气文件lat={0:.1f},lon={1:.1f}.xlsx'.  # 气象参数
+                                                            format(st_loc(row['lat']), st_loc(row['lon']))))
+crop_name = row['crop_name_winter']  #作物名称
+variety_name = row['variety_name_winter']  #作物种类名称
 cropdata.set_active_crop(crop_name, variety_name)
-
 soildata = CABOFileReader(os.path.join(soil_parameter_dir,'ec3.new'))  # 土壤文件
-soildataList = sub_data.loc[sub_data['序号']==site]
-SAND = soildataList['SAND'].values # 砂粒
-CLAY = soildataList['SLAY'].values # 黏粒
-OM = soildataList['SOM'].values # 有机质
-BULK_DENSITY = soildataList['BULK_DENSITY'].values  # 容重
 
 sitedata = {'SSMAX'  : 0.,
             'IFUNRN' : 0,
@@ -69,9 +62,9 @@ sitedata = {'SSMAX'  : 0.,
             'SMLIM'  : 0.03,
             'RDMSOL'  : 120,
             'CO2' : 360,
-            'NAVAILI': sub_data.loc[sub_data['序号']==site,['NAVAILI']].values,
-            'PAVAILI': sub_data.loc[sub_data['序号']==site,['PAVAILI']].values,
-            'KAVAILI': sub_data.loc[sub_data['序号']==site,['KAVAILI']].values,
+            'NAVAILI': 10,
+            'PAVAILI': 10,
+            'KAVAILI': 10,
             'NSOILBASE':10,
             'PSOILBASE':10,
             'KSOILBASE':10,
@@ -82,7 +75,6 @@ sitedata = {'SSMAX'  : 0.,
             'PSOILBASE_FR':0.025,
             'KSOILBASE_FR':0.025}
 parameters = ParameterProvider(cropdata=cropdata, soildata=soildata, sitedata=sitedata)
-#parameters['SMW'],parameters['SMFCF'],parameters['SM0'],parameters['K0'] = soil_data(SAND, CLAY, OM, BULK_DENSITY)
 
 #创建文档储存模型输出结果
 with open(os.path.join(para_dir,'result.txt'),'a') as fp2:
@@ -124,4 +116,4 @@ with open(os.path.join(para_dir,'result.txt'),'a') as fp2:
             if i%100==0:
                 print(i)
 end=datetime.datetime.now()
-print('运行完成,共用时{}'.format(end-star))
+print('运行完成,共用时{}'.format(end-start))

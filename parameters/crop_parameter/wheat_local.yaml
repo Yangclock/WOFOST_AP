@@ -163,7 +163,7 @@ CropParameters:
             # INITIAL STATES
             #
             TDWI:
-            -  20.00
+            -  200.00
             - initial total crop dry weight
             - ['kg.ha-1']
             RGRLAI:

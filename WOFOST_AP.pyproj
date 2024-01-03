@@ -24,6 +24,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="utils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="download_meteorological_parameter.py" />
     <Compile Include="load_soil_water_parameter.py" />
     <Compile Include="EnKF.py">
@@ -37,6 +40,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="optimize_parameter.py" />
+    <Compile Include="WOFOST_main_20240103.py" />
     <Compile Include="WOFOST_main.py" />
   </ItemGroup>
   <ItemGroup>
