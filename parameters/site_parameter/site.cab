@@ -3,7 +3,7 @@
 ** Derived from management data file for use with LINTUL model (May 2011)
 **
 
-SMLIM = 0.3  ! Limiting amount of volumetric moisture in upper soil layer [-]
+SMLIM = 0  ! Limiting amount of volumetric moisture in upper soil layer [-]
 IFUNRN = 0   ! Rain infiltration as function of storm size [0/1]
 SSMAX = 0.   ! Maximum surface storage [cm]
 SSI = 0.      ! Initial surface storage [cm]
@@ -15,6 +15,7 @@ CO2 = 360
 * Background supply of N [kg/ha/day]
 BG_N_SUPPLY = 0.091
 * Soil N mineralization
+NAVAILI = 0
 NSOILBASE   =     10.    ! total mineral soil N available at start of growth period [kg N/ha]
 NSOILBASE_FR  =   0.025  ! fraction of soil mineral coming available per day [day-1]
 
