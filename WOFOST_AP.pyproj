@@ -40,7 +40,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="optimize_parameter.py" />
-    <Compile Include="WOFOST_main_20240103.py" />
     <Compile Include="WOFOST_main.py" />
   </ItemGroup>
   <ItemGroup>

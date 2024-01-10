@@ -50,25 +50,24 @@ def set_site_data(n, p, k):
                  'NAVAILI': n,
                  'PAVAILI': p,
                  'KAVAILI': k,
-                 'NSOILBASE': 10,
-                 'PSOILBASE': 10,
-                 'KSOILBASE': 10,
+                 'NSOILBASE': 100,
+                 'PSOILBASE': 0,
+                 'KSOILBASE': 100,
                  'BG_N_SUPPLY': 0.091,
-                 'BG_K_SUPPLY': 0.091,
-                 'BG_P_SUPPLY': 0.091,
+                 'BG_P_SUPPLY': 0,
+                 'BG_K_SUPPLY': 0,
                  'NSOILBASE_FR': 0.025,
                  'PSOILBASE_FR': 0.025,
                  'KSOILBASE_FR': 0.025}
     return site_data
 
 
-def argo_modify(agro, row):
+def argo_w_modify(agro, row):
     """
     修改播种日期，土壤施肥与灌溉数据
     argo :: 读取的管理参数字典
     row  :: 列表
     """
-
     agro[0][datetime.date(2019, 10, 1)]['CropCalendar']['crop_start_date'] = datetime.datetime.strptime(
         row['wintercrop_start_date'], '%Y-%m-%d').date()  # 播期替换
     events_table = [["2019-10-01", 0.6],
