@@ -1,18 +1,4 @@
-input_str = "[0_201910B2, 0_201910B3, 0_201910B4, 0_201910B5, 0_201910B6, 0_201910B7, 0_201910B8, 0_201910NDVI, 0_201910EVI, 0_201910NDWI, 0_201910WRI, 1_20201B2, 1_20201B3, 1_20201B4, 1_20201B5, 1_20201B6, 1_20201B7, 1_20201B8, 1_20201NDVI, 1_20201EVI, 1_20201NDWI, 1_20201WRI, 2_20204B2, 2_20204B3, 2_20204B4, 2_20204B5, 2_20204B6, 2_20204B7, 2_20204B8, 2_20204NDVI, 2_20204EVI, 2_20204NDWI, 2_20204WRI, 3_20207B2, 3_20207B3, 3_20207B4, 3_20207B5, 3_20207B6, 3_20207B7, 3_20207B8, 3_20207NDVI, 3_20207EVI, 3_20207NDWI, 3_20207WRI, ELEVATION, SLOPE]"
+from utils import jd_to_time
 
-# 将 "2019" 替换为 "2021"
-input_str = input_str.replace("2019", "2021")
 
-# 将 "2020" 替换为 "2022"
-input_str = input_str.replace("2020", "2022")
-
-# 移除中括号
-input_str = input_str[1:-1]
-
-# 以逗号分割字符串，得到一个对象列表
-objects = input_str.split(", ")
-
-# 给每个对象加上英文的双引号
-output_str = ', '.join(['"' + obj + '"' for obj in objects])
-
-print(output_str)
+print(jd_to_time("274"))

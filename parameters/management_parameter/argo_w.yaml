@@ -14,8 +14,15 @@ AgroManagement:
         name: Irrigation application table
         comment: All irrigation amounts in cm
         events_table:
-        - 2019-10-15: {amount: 10, efficiency: 0.7}
-        - 2019-11-15: {amount:  5, efficiency: 0.7}
+        - 2019-10-01: {amount:  8.0, efficiency: 0.7}
+        - 2019-11-01: {amount:  7.59, efficiency: 0.7}
+        - 2019-12-01: {amount:  7.75, efficiency: 0.7}
+        - 2020-01-01: {amount:  6.75, efficiency: 0.7}
+        - 2020-02-01: {amount:  13.08, efficiency: 0.7}
+        - 2020-03-01: {amount:  14.78, efficiency: 0.7}
+        - 2020-04-01: {amount:  12.56, efficiency: 0.7}
+        - 2020-05-01: {amount:  13.71, efficiency: 0.7}
+        - 2020-06-01: {amount:  15.53, efficiency: 0.7}
     -   event_signal: apply_npk
         name: Timed N/P/K application table
         comment: All fertilizer amounts in kg/ha
@@ -23,19 +30,5 @@ AgroManagement:
         - 2019-10-01: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
         - 2020-01-15: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
         - 2020-04-01: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
-    StateEvents: 
-    -   event_signal: apply_npk
-        event_state: DVS
-        zero_condition: rising
-        name: DVS-based N/P/K application table
-        comment: all fertilizer amounts in kg/ha
-        events_table:
-            - 0.6: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.8, P_recovery: 0.8, K_recovery: 0.8}
-    -   event_signal: irrigate
-        event_state: SM
-        zero_condition: falling
-        name: Soil moisture driven irrigation scheduling
-        comment: all irrigation amounts in cm of water
-        events_table:
-            - 0.15: {irrigation_amount: 0}
-- 2020-05-31:
+    StateEvents: null
+- 2020-06-30:

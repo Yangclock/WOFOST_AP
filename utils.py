@@ -7,14 +7,15 @@ def time_to_jd(time):
     datetime类型数据转为儒略日
     """
     tt = time.timetuple()
-    return tt.tm_year * 1000 + tt.tm_yday
+    return tt.tm_yday
 
 
 def jd_to_time(time):
     """
     儒略日转换为datetime类型
     """
-    dt = datetime.datetime.strptime(str(time), '%Y%j').date()
+    time = "2019" + str(time)
+    dt = datetime.datetime.strptime(time, '%Y%j').date()
     return dt
 
 
@@ -50,9 +51,9 @@ def set_site_data(n, p, k):
                  'NAVAILI': n,
                  'PAVAILI': p,
                  'KAVAILI': k,
-                 'NSOILBASE': 100,
+                 'NSOILBASE': 50,
                  'PSOILBASE': 0,
-                 'KSOILBASE': 100,
+                 'KSOILBASE': 30,
                  'BG_N_SUPPLY': 0.091,
                  'BG_P_SUPPLY': 0,
                  'BG_K_SUPPLY': 0,
@@ -81,11 +82,6 @@ def argo_w_modify(agro, row):
         for j in fert_table:
             agro = fertilizer_modify(agro, i[0], k, j[0], i[1] * j[1])
         k += 1
-    # irr_condition = agromanagement[0][datetime.date(2019, 10, 1)]['StateEvents'][0]['events_table'][0]  # 获取到自动灌溉的字典
-    # irr_calculation = round(irrigation/100*parameters['SMFCF'], 2).item()  # 灌溉条件替换, 读取的数据可能是numpy类型
-    # agromanagement[0][datetime.date(2019, 10, 1)]['StateEvents'][0]['eventsol_table'][0][irr_calculation] = \
-    # agromanagement[0][datetime.date(2019, 10, 1)]['StateEvents'][0]['events_table'][0].pop(list(irr_condition.keys())[0])
-    # agro[0][datetime.date(2019,10,1)]['TimedEvents'][0]['events_table']
     return agro
 
 

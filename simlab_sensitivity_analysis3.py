@@ -52,7 +52,7 @@ weather_data = ExcelWeatherDataProvider(
 
 # 创建文档储存模型输出结果
 with open(os.path.join(para_dir, 'result.txt'), 'a') as fp2:
-    fp2.writelines(['1', '\n', 'TSWO', '\n', 'time = no', '\n'])
+    fp2.writelines(['4', '\n', 'LAI', '\n', 'TAGP', '\n', 'TWSO', '\n', 'RPuptake', '\n', 'time = no', '\n'])
     # 打开simlab输出的文档
     with open(os.path.join(para_dir, 'EFAST_wheat0110.SAM'), 'r') as fp:
         fp.readline()  # 第一行
@@ -96,7 +96,7 @@ with open(os.path.join(para_dir, 'result.txt'), 'a') as fp2:
             wf = Wofost80_NWLP_FD_beta(parameters, weather_data, agromanagement)
             wf.run_till_terminate()
             output = wf.get_summary_output()
-            fp2.write(str(output[0]['TWSO']))
+            fp2.write(str(output[0]['TWSO'], '\t', str(output[0]['TAGP'], '\t', str(output[0]['TAGP'], '\t', str(output[0]['TAGP'])))
             fp2.write('\n')
             if i % 100 == 0:
                 print(i)
