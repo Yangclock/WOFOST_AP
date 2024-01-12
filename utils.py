@@ -1,6 +1,7 @@
 import datetime
 import math
 import numpy as np
+from scipy.signal import savgol_filter as sg
 
 
 def time_to_jd(time):
@@ -163,3 +164,54 @@ def soil_data(s, c, om, b=1.37, rw=0):
     kb = kb_ks * ks
     kb = 2.4 * kb
     return [pwp, fc_v, sat_v, kb]
+
+
+def kalman_filter(data, q=0.0001, r=0.01):
+    """
+    卡尔曼滤波器
+    """
+    # 后验初始值
+    x0 = data[0]                              # 令第一个估计值，为当前值
+    p0 = 1.0
+    # 存结果的列表
+    x = [x0]
+    for z in data[1:]:                        # kalman 滤波实时计算，只要知道当前值z就能计算出估计值(后验值)x0
+        # 先验值
+        x1_minus = x0                         # X(k|k-1) = AX(k-1|k-1) + BU(k) + W(k), A=1,BU(k) = 0
+        p1_minus = p0 + q                     # P(k|k-1) = AP(k-1|k-1)A' + Q(k), A=1
+        # 更新K和后验值
+        k1 = p1_minus / (p1_minus + r)        # Kg(k)=P(k|k-1)H'/[HP(k|k-1)H' + R], H=1
+        x0 = x1_minus + k1 * (z - x1_minus)   # X(k|k) = X(k|k-1) + Kg(k)[Z(k) - HX(k|k-1)], H=1
+        p0 = (1 - k1) * p1_minus              # P(k|k) = (1 - Kg(k)H)P(k|k-1), H=1
+        x.append(x0)                          # 由输入的当前值z 得到估计值x0存入列表中，并开始循环到下一个值
+    return x
+
+
+def sg_envelope_filter(data, window_size=None, stad_lower=0.08, order=1):
+    """
+    S-G包络滤波
+    Parameters
+    -------------------
+    data::输入数据
+    window_size::需要为奇数
+    stad_lower::越低则越接近包络线，越高则越接近散点曲线
+    order::最小二乘法拟合阶数
+    """
+    if window_size is None:
+        window_size = int(len(data)) // 10
+    if window_size % 2 == 0 or window_size == 0:
+        window_size += 1
+
+    initial = np.array(data)
+    initial_sg = sg(initial, window_size, order)
+    dev = data - initial_sg
+    stad = np.sqrt(np.mean(dev**2))
+    while stad > stad_lower:
+        for i in range(len(initial_sg)):
+            if dev[i] > 0:
+                initial_sg[i] = initial[i]
+        initial = initial_sg
+        initial_sg = sg(initial_sg, window_size, order)
+        dev = initial - initial_sg
+        stad = np.sqrt(np.mean(dev ** 2))
+    return initial_sg

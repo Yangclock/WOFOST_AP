@@ -19,11 +19,12 @@ from utils import argo_r_modify  # 修改施肥灌溉等管理参数
 from utils import set_site_data  # 设置站点数据
 
 # 路径设置
-data_dir = r'D:\\Desktop\\WOFOST_AP\\workspace'  # 工作路径
-weather_dir = r'D:\Desktop\WOFOST_AP\parameters\meteorological_parameter'  # 气象数据路径
-crop_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\crop_parameter'  # 作物文件路径
-soil_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\soil_parameter'  # 土壤文件路径
-management_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\management_parameter'  # 管理文件路径
+work_dir = os.getcwd()
+data_dir = os.path.join(work_dir, "workspace")  # 工作路径
+weather_dir = os.path.join(work_dir, "parameters", "meteorological_parameter")  # 气象数据路径
+crop_parameter_dir = os.path.join(work_dir, "parameters", "crop_parameter")  # 作物文件路径
+soil_parameter_dir = os.path.join(work_dir, "parameters", "soil_parameter")  # 土壤文件路径
+management_parameter_dir = os.path.join(work_dir, "parameters", "management_parameter")  # 管理文件路径
 
 # --------------------------------------------------------
 #                     WOFOST运行

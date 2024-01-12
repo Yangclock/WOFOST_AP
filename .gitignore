@@ -336,7 +336,7 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
-# BeatPulse healthcheck temp database
+# BeatPulse healthcheck temp.py database
 healthchecksdb
 /3实验过程
 /ArcGIS

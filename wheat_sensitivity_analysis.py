@@ -22,11 +22,12 @@ from utils import jd_to_time  # 转换儒略日
 
 
 def wheat_sensitive(nutrition=True):
-    weather_dir = r'D:\Desktop\WOFOST_AP\parameters\meteorological_parameter'  # 气象数据路径
-    crop_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\crop_parameter'  # 作物文件路径
-    soil_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\soil_parameter'  # 土壤文件路径
-    management_parameter_dir = r'D:\Desktop\WOFOST_AP\parameters\management_parameter'  # 管理文件路径
-    para_dir = r'D:\\Desktop\\WOFOST_AP\\simlab_sensitivity_analysis'  # 敏感性分析参数读取与输出
+    work_dir = os.getcwd()
+    para_dir = os.path.join(work_dir, "simlab_sensitivity_analysis")  # 敏感性分析参数读取与输出
+    weather_dir = os.path.join(work_dir, "parameters", "meteorological_parameter")  # 气象数据路径
+    crop_parameter_dir = os.path.join(work_dir, "parameters", "crop_parameter")  # 作物文件路径
+    soil_parameter_dir = os.path.join(work_dir, "parameters", "soil_parameter")  # 土壤文件路径
+    management_parameter_dir = os.path.join(work_dir, "parameters", "management_parameter")  # 管理文件路径
     data_base_info = pd.read_excel(os.path.join(para_dir, 'sensitive_sample_point.xlsx'), sheet_name='Sheet1')  # 模拟的位置
     row = data_base_info.loc[0]
     # 要改变的单一值数据
