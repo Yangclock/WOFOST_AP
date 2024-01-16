@@ -1027,219 +1027,6 @@ CropParameters:
              - Maximum rate of daily potassium uptake
              - ['kg.ha-1.d-1']
     Varieties:
-        Rice_501:
-            <<: *rice_eu
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: E.R. Boons-Prins, G.H.J. de Koning, CA. van Diepen, F.W.T. Penning de Vries
-                Date: 1992-06-01
-                subject: Crop parameters for a rice cultivar grown in Europe
-                Description: Parameters for a rice cultivar grown in Europe. Calibrated for the MARS project for
-                    selected locations in Europe. Because of limited data available, only temperature sums were
-                    estimated. Emergence date between 1 and 15 May, mean date of flowering between 21 July and
-                    1 August, mean date of maturity between 1 September and 1 October.
-                Identifier:
-                Relation:
-                Source: https://edepot.wur.nl/308997
-                Type: Report
-                Coverage:
-                   Region: Northern-Italy, Southern France, Spain, Greece
-            TSUM1:
-            -  875
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  625
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-        Rice_HYV_IR8:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar based on the Van Heemst (1988) parameters
-                Description: Parameters for a rice cultivar grown in tropical regions. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. Note that the calibration is based on transplanted rice.
-                Identifier:
-                Relation:
-                Source: https://edepot.wur.nl/218353
-                Type: Report
-                Coverage:
-                   Region: tropical regions
-            TSUM1:
-            -  800
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  465
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-        Rice_IR64616H_DS:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR64616H
-                Description: Parameters for a rice cultivar IR64616H developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. Calibration based on experiments at IRRI in the dry season of 1992, 225 kg N (M10). Note
-                    that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998."
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1420
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  680
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 24.0,
-               42.5,  0.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.187
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  50.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0080
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00600,
-               0.17, 0.00600,
-               0.37, 0.00305,
-               0.65, 0.00240,
-               0.76, 0.00260,
-               1.00, 0.00240,
-               1.44, 0.00210,
-               2.00, 0.00190]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.533,
-               0.085, 0.533,
-               0.270, 0.585,
-               0.510, 0.550,
-               0.705, 0.430,
-               0.880, 0.077,
-               1.220, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.467,
-               0.085, 0.467,
-               0.270, 0.415,
-               0.510, 0.450,
-               0.705, 0.570,
-               0.880, 0.555,
-               1.220, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.705, 0.000,
-               0.880, 0.368,
-               1.220, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
         Hubei_rice_1:
             Metadata:
                 <<: *meta
@@ -1268,11 +1055,183 @@ CropParameters:
             - optimum daylength for development
             - ['hr']
             TSUM1:
-            - 1630
+            - 1585
             - temperature sum from emergence to anthesis
             - ['C.d']
             TSUM2:
-            -  530
+            -  500
+            - temperature sum from anthesis to maturity
+            - ['C.d']
+            DTSMTB:
+            - [ 0.0,  0.0,
+                8.0,  0.0,
+               30.0, 24.0,
+               42.5,  0.0]
+            - daily increase in temperature sum as function of daily average temperature
+            - ['C', 'C']
+            DVSI:
+            -  0.23
+            - Initial development stage
+            - ['-']
+            TDWI:
+            - 40.00
+            - initial total crop dry weight
+            - ['kg.ha-1']
+            RGRLAI:
+            - 0.0070
+            - maximum relative increase in LAI
+            - ['d-1']
+            SLATB:
+            - [0.00, 0.0075,
+               0.18, 0.0074,
+               0.65, 0.0024,
+               1.00, 0.0024,
+               1.55, 0.0023,
+               2.00, 0.0019]
+            - specific leaf area as a function of DVS
+            - ['-', 'ha.kg-1']
+            SSATB:
+            - [0.00, 0.0003,
+               0.90, 0.0003,
+               2.00, 0.0000]
+            - specific stem area as function of DVS
+            - ['-', 'ha.kg-1']
+            TBASE:
+            -  8.8
+            - lower threshold temperature for ageing of leaves
+            - ['C']
+            KDIFTB:
+            - [0.00, 0.400,
+               0.65, 0.400,
+               1.00, 0.600,
+               2.00, 0.610]
+            - extinction coefficient for diffuse visible light as function of DVS
+            - ['-', '-']
+            EFFTB:
+            - [10.0, 0.500,
+               40.0, 0.360]
+            - initial light-use efficiency single leaf as function of daily mean temperature
+            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
+            AMAXTB:
+            - [0.00, 50.00,
+               0.20, 45.00,
+               0.35, 40.00,
+               0.70, 40.00,
+               0.80, 50.00,
+               2.00, 50.00]
+            - maximum leaf CO2 assimilation rate as function of DVS
+            - ['-', 'kg.ha-1.hr-1']
+            CVL:
+            - 0.767
+            - efficiency of conversion into leaves
+            - ['mass.mass-1']
+            CVO:
+            - 0.6
+            - efficiency of conversion into storage organs
+            - ['mass.mass-1']
+            CVR:
+            - 0.754
+            - efficiency of conversion into roots
+            - ['mass.mass-1']
+            CVS:
+            - 0.754
+            - efficiency of conversion into stems
+            - ['mass.mass-1']
+            RML:
+            - 0.0200
+            - relative maintenance respiration rate of leaves
+            - ['d-1']
+            RMO:
+            - 0.0034
+            - relative maintenance respiration rate of storage organs
+            - ['d-1']
+            RMS:
+            - 0.022
+            - relative maintenance respiration rate of stems
+            - ['d-1']
+            FRTB:
+            - [0.000, 0.400,
+               0.250, 0.200,
+               0.400, 0.200,
+               0.500, 0.465,
+               0.700, 0.400,
+               0.720, 0.000,
+               1.000, 0.000,
+               2.000, 0.000]
+            - fraction of total dry matter to roots as a function of DVS
+            - ['-', 'mass.mass-1']
+            FLTB:
+            - [0.000, 0.650,
+               0.530, 0.574,
+               0.800, 0.350,
+               0.940, 0.200,
+               1.000, 0.150,
+               1.130, 0.000,
+               2.000, 0.000]
+            - fraction of total dry matter to leaves as a function of DVS
+            - ['-', 'mass.mass-1']
+            FSTB:
+            - [0.000, 0.350,
+               0.530, 0.426,
+               0.800, 0.650,
+               0.940, 0.500,
+               1.000, 0.150,
+               1.130, 0.000,
+               2.000, 0.000]
+            - fraction of total dry matter to stems as a function of DVS
+            - ['-', 'mass.mass-1']
+            FOTB:
+            - [0.800, 0.000,
+               0.940, 0.300,
+               1.000, 0.700,
+               1.130, 1.000,
+               2.000, 1.000]
+            - fraction of total dry matter to storage organs as a function of DVS
+            - ['-', 'mass.mass-1']
+            RDRSTB:
+            - [0.00, 0.000,
+               1.50, 0.000,
+               1.51, 0.020,
+               2.00, 0.020]
+            - relative death rate of roots as a function of DVS
+            - ['-', 'kg.kg-1.d-1']
+            RDI:
+            -  6.0
+            - initial rooting depth
+            - ['cm']
+        Hubei_rice_2:
+            Metadata:
+                <<: *meta
+                Creator: Allard de Wit
+                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
+                Date: 1997-06-01
+                subject: Crop parameters for a tropical rice cultivar IRRI IR64616H
+                Description: Parameters for a rice cultivar IR64616H developed at IRRI. Calibrated for the simulation
+                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
+                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
+                    1997. Calibration based on experiments at IRRI in the wet season of 1992, 121 kg N. Note
+                    that the calibration is based on experiments with transplanted rice given that DVSI > 0.
+                    Parameters related to emergence are not provided and therefore this variety can only be used
+                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
+                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
+                    rice. No. 2169-2019-1595. 1998. "
+                Identifier:
+                Relation:
+                Source: https://doi.org/10.22004/ag.econ.287573
+                Type: Journal article
+                Coverage:
+                    Region: Philippines, Indonesia, Vietnam
+            <<: *rice_irri
+            DLO:
+            - 11.5
+            - optimum daylength for development
+            - ['hr']
+            TSUM1:
+            - 1550
+            - temperature sum from emergence to anthesis
+            - ['C.d']
+            TSUM2:
+            -  475
             - temperature sum from anthesis to maturity
             - ['C.d']
             DTSMTB:
@@ -1295,27 +1254,22 @@ CropParameters:
             - maximum relative increase in LAI
             - ['d-1']
             SLATB:
-            - [0.00, 0.00550,
-               0.18, 0.00550,
-               0.40, 0.00110,
-               0.65, 0.00200,
-               0.79, 0.00170,
-               1.00, 0.00200,
-               1.55, 0.00210,
-               2.00, 0.00220]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.61, 0.0003,
+            - [0.00, 0.0030,
+               0.61, 0.0032,
                0.80, 0.0029,
                1.00, 0.0025,
                1.55, 0.0025,
                2.00, 0.0018]
+            - specific leaf area as a function of DVS
+            - ['-', 'ha.kg-1']
+            SSATB:
+            - [0.00, 0.0003,
+               0.90, 0.0003,
+               2.00, 0.0000]
             - specific stem area as function of DVS
             - ['-', 'ha.kg-1']
             TBASE:
-            -  8.0
+            -  6.0
             - lower threshold temperature for ageing of leaves
             - ['C']
             KDIFTB:
@@ -1326,18 +1280,19 @@ CropParameters:
             - extinction coefficient for diffuse visible light as function of DVS
             - ['-', '-']
             EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
+            - [10.0, 0.600,
+               40.0, 0.315]
             - initial light-use efficiency single leaf as function of daily mean temperature
             - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
             AMAXTB:
-            - [0.00, 40.00,
+            - [0.00, 44.00,
+               1.00, 40.00,
                1.90, 40.00,
                2.00, 40.00]
             - maximum leaf CO2 assimilation rate as function of DVS
             - ['-', 'kg.ha-1.hr-1']
             CVL:
-            - 0.754
+            - 0.736
             - efficiency of conversion into leaves
             - ['mass.mass-1']
             CVO:
@@ -1362,8 +1317,8 @@ CropParameters:
             - ['d-1']
             FRTB:
             - [0.000, 0.450,
-               0.430, 0.450,
-               0.800, 0.350,
+               0.430, 0.400,
+               0.800, 0.400,
                0.850, 0.000,
                1.000, 0.000,
                2.000, 0.000]
@@ -1371,9 +1326,9 @@ CropParameters:
             - ['-', 'mass.mass-1']
             FLTB:
             - [0.000, 0.650,
-               0.500, 0.620,
-               0.600, 0.570,
-               0.700, 0.570,
+               0.500, 0.660,
+               0.600, 0.500,
+               0.700, 0.580,
                0.800, 0.380,
                1.000, 0.000,
                2.000, 0.000]
@@ -1381,9 +1336,9 @@ CropParameters:
             - ['-', 'mass.mass-1']
             FSTB:
             - [0.000, 0.350,
-               0.500, 0.380,
-               0.600, 0.430,
-               0.700, 0.430,
+               0.500, 0.340,
+               0.600, 0.500,
+               0.700, 0.420,
                0.800, 0.620,
                1.000, 0.400,
                1.200, 0.000,
@@ -1400,841 +1355,7 @@ CropParameters:
             RDRSTB:
             - [0.00, 0.000,
                1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
-        Rice_IR64:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR64
-                Description: Parameters for a rice cultivar IR64616H developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. Calibration based on experiments at IRRI in the wet season of 1992, 121 kg N. Note
-                    that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998. "
-                    Calibration results for this variety are likely derived from a sub-optimal experiment.
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1570
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  770
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 24.0,
-               42.5,  0.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.24
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  50.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0090
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00600,
-               0.24, 0.00600,
-               0.31, 0.00400,
-               0.58, 0.00400,
-               0.67, 0.00300,
-               1.13, 0.00300,
-               1.54, 0.00200,
-               2.01, 0.00200]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.850,
-               0.120, 0.850,
-               0.240, 0.250,
-               0.275, 0.618,
-               0.350, 0.726,
-               0.435, 0.617,
-               0.530, 0.440,
-               0.625, 0.619,
-               0.720, 0.400,
-               0.820, 0.284,
-               1.000, 0.000,
-               1.335, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.150,
-               0.120, 0.150,
-               0.240, 0.750,
-               0.275, 0.382,
-               0.350, 0.274,
-               0.435, 0.383,
-               0.530, 0.560,
-               0.625, 0.381,
-               0.720, 0.600,
-               0.820, 0.516,
-               1.000, 0.328,
-               1.335, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.720, 0.000,
-               0.820, 0.200,
-               1.000, 0.672,
-               1.335, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
-        Rice_IR72:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR72
-                Description: Parameters for a rice cultivar IR72 developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. This variety is based on a consolidated parameter set derived from the calibrations for
-                    IR72 that were done separately for the dry and wet seasons. Note
-                    that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998."
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1420
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  630
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 24.0,
-               42.5,  0.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.16
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  50.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0080
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00450,
-               0.16, 0.00330,
-               0.33, 0.00330,
-               0.65, 0.00280,
-               0.79, 0.00210,
-               1.00, 0.00190,
-               1.46, 0.00170,
-               2.02, 0.00170]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.497,
-               0.100, 0.497,
-               0.300, 0.591,
-               0.500, 0.524,
-               0.700, 0.401,
-               0.900, 0.091,
-               1.200, 0.000,
-               1.700, 0.000,
-               2.100, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.503,
-               0.100, 0.503,
-               0.300, 0.409,
-               0.500, 0.476,
-               0.700, 0.586,
-               0.900, 0.592,
-               1.200, 0.000,
-               1.700, 0.000,
-               2.100, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.500, 0.000,
-               0.700, 0.013,
-               0.900, 0.317,
-               1.200, 1.000,
-               1.100, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
-        Rice_IR72_DS:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR72
-                Description: Parameters for a rice cultivar IR72 developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. This variety is based on a parameter set derived from the calibrations for
-                    IR72 that were done for the dry season only.
-                    Note that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998. "
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1420
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  630
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 24.0,
-               42.5,  0.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.16
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  50.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0080
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00450,
-               0.16, 0.00450,
-               0.33, 0.00330,
-               0.65, 0.00280,
-               0.79, 0.00210,
-               1.00, 0.00190,
-               1.46, 0.00170,
-               2.02, 0.00170]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.545,
-               0.080, 0.545,
-               0.245, 0.559,
-               0.490, 0.542,
-               0.720, 0.422,
-               0.895, 0.053,
-               1.000, 0.000,
-               1.230, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.455,
-               0.080, 0.455,
-               0.245, 0.441,
-               0.490, 0.458,
-               0.720, 0.578,
-               0.895, 0.517,
-               1.000, 0.100,
-               1.230, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.720, 0.000,
-               0.895, 0.430,
-               1.000, 0.900,
-               1.230, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
-        Rice_IR72_WS:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR72
-                Description: Parameters for a rice cultivar IR72 developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997. This variety is based on a parameter set derived from the calibrations for
-                    IR72 that were done for the wet season only.
-                    Note that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998. "
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1550
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  600
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 24.0,
-               42.5,  0.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.16
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  60.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0080
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00270,
-               0.14, 0.00270,
-               0.36, 0.00270,
-               0.65, 0.00220,
-               0.80, 0.00190,
-               1.00, 0.00180,
-               1.53, 0.00200,
-               2.00, 0.00170]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.545,
-               0.070, 0.545,
-               0.250, 0.583,
-               0.505, 0.450,
-               0.725, 0.497,
-               0.900, 0.109,
-               1.265, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.455,
-               0.070, 0.455,
-               0.250, 0.417,
-               0.505, 0.550,
-               0.725, 0.503,
-               0.900, 0.419,
-               1.265, 0.003,
-               1.765, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.250, 0.000,
-               0.505, 0.000,
-               0.725, 0.000,
-               0.900, 0.472,
-               1.265, 0.997,
-               1.765, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
-               2.00, 0.020]
-            - relative death rate of roots as a function of DVS
-            - ['-', 'kg.kg-1.d-1']
-        Rice_IR8A:
-            <<: *rice_irri
-            Metadata:
-                <<: *meta
-                Creator: Allard de Wit
-                Contributor: Diepen, C.A. C. Rappoldt, J. Wolf & H. van Keulen, Cabrerea, J. M. C. A., R. Roetter, H. H. Van Laar
-                Date: 1997-06-01
-                subject: Crop parameters for a tropical rice cultivar IRRI IR8
-                Description: Parameters for a rice cultivar IR8 developed at IRRI. Calibrated for the simulation
-                    of crop growth on the basis of monthly weather data. Purpose of application was the assessment
-                    of regional crop production potential in tropical regions. Developed in the framework of SysNet,
-                    1997.
-                    Note that the calibration is based on experiments with transplanted rice given that DVSI > 0.
-                    Parameters related to emergence are not provided and therefore this variety can only be used
-                    with the simulation starting from emergence. Results are provided in "Cabrerea, J. M. C. A.,
-                    R. Roetter, and H. H. Van Laar. Preliminary results of crop model development and evaluation for
-                    rice. No. 2169-2019-1595. 1998."
-                Identifier:
-                Relation:
-                Source: https://doi.org/10.22004/ag.econ.287573
-                Type: Journal article
-                Coverage:
-                    Region: Philippines, Indonesia, Vietnam
-            DLO:
-            - 11.5
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1633
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  506
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            DTSMTB:
-            - [ 0.0,  0.0,
-                8.0,  0.0,
-               30.0, 22.0,
-               42.5, 22.0]
-            - daily increase in temperature sum as function of daily average temperature
-            - ['C', 'C']
-            DVSI:
-            -  0.15
-            - Initial development stage
-            - ['-']
-            TDWI:
-            -  50.00
-            - initial total crop dry weight
-            - ['kg.ha-1']
-            RGRLAI:
-            - 0.0080
-            - maximum relative increase in LAI
-            - ['d-1']
-            SLATB:
-            - [0.00, 0.00450,
-               0.16, 0.00450,
-               0.33, 0.00330,
-               0.65, 0.00280,
-               0.79, 0.00210,
-               1.00, 0.00190,
-               1.46, 0.00170,
-               2.02, 0.00170]
-            - specific leaf area as a function of DVS
-            - ['-', 'ha.kg-1']
-            SSATB:
-            - [0.00, 0.0003,
-               0.90, 0.0003,
-               2.00, 0.0000]
-            - specific stem area as function of DVS
-            - ['-', 'ha.kg-1']
-            TBASE:
-            -  8.0
-            - lower threshold temperature for ageing of leaves
-            - ['C']
-            KDIFTB:
-            - [0.00, 0.400,
-               0.65, 0.400,
-               1.00, 0.600,
-               2.00, 0.600]
-            - extinction coefficient for diffuse visible light as function of DVS
-            - ['-', '-']
-            EFFTB:
-            - [10.0, 0.540,
-               40.0, 0.360]
-            - initial light-use efficiency single leaf as function of daily mean temperature
-            - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
-            AMAXTB:
-            - [0.00, 40.00,
-               1.90, 40.00,
-               2.00, 40.00]
-            - maximum leaf CO2 assimilation rate as function of DVS
-            - ['-', 'kg.ha-1.hr-1']
-            CVL:
-            - 0.754
-            - efficiency of conversion into leaves
-            - ['mass.mass-1']
-            CVO:
-            - 0.684
-            - efficiency of conversion into storage organs
-            - ['mass.mass-1']
-            CVR:
-            - 0.754
-            - efficiency of conversion into roots
-            - ['mass.mass-1']
-            CVS:
-            - 0.754
-            - efficiency of conversion into stems
-            - ['mass.mass-1']
-            RML:
-            - 0.0200
-            - relative maintenance respiration rate of leaves
-            - ['d-1']
-            RMO:
-            - 0.0030
-            - relative maintenance respiration rate of storage organs
-            - ['d-1']
-            FRTB:
-            - [0.000, 0.500,
-               0.430, 0.250,
-               1.000, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to roots as a function of DVS
-            - ['-', 'mass.mass-1']
-            FLTB:
-            - [0.000, 0.545,
-               0.080, 0.545,
-               0.245, 0.559,
-               0.490, 0.542,
-               0.720, 0.422,
-               0.895, 0.053,
-               1.000, 0.000,
-               1.230, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to leaves as a function of DVS
-            - ['-', 'mass.mass-1']
-            FSTB:
-            - [0.000, 0.455,
-               0.080, 0.455,
-               0.245, 0.441,
-               0.490, 0.458,
-               0.720, 0.578,
-               0.895, 0.517,
-               1.000, 0.100,
-               1.230, 0.000,
-               2.000, 0.000]
-            - fraction of total dry matter to stems as a function of DVS
-            - ['-', 'mass.mass-1']
-            FOTB:
-            - [0.000, 0.000,
-               0.720, 0.000,
-               0.895, 0.430,
-               1.000, 0.900,
-               1.230, 1.000,
-               2.000, 1.000]
-            - fraction of total dry matter to storage organs as a function of DVS
-            - ['-', 'mass.mass-1']
-            RDRSTB:
-            - [0.00, 0.000,
-               1.50, 0.000,
-               1.51, 0.020,
+               1.51, 0.017,
                2.00, 0.020]
             - relative death rate of roots as a function of DVS
             - ['-', 'kg.kg-1.d-1']

@@ -5,7 +5,7 @@
     <ProjectGuid>32180117-f0ac-4c3d-ac9a-2566f0101d6a</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>WOFOST_main.py</StartupFile>
+    <StartupFile>optimize_parameter.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

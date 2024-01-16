@@ -58,7 +58,7 @@ def set_site_data(n, p, k):
                  'KSOILBASE': 60,
                  'BG_N_SUPPLY': 0.091,
                  'BG_P_SUPPLY': 0,
-                 'BG_K_SUPPLY': 0,
+                 'BG_K_SUPPLY': 0.091,
                  'NSOILBASE_FR': 0.025,
                  'PSOILBASE_FR': 0.025,
                  'KSOILBASE_FR': 0.025}

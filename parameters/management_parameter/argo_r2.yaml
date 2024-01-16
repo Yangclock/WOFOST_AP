@@ -1,0 +1,31 @@
+Version: 1.0
+AgroManagement:
+- 2020-06-01:
+    CropCalendar:
+        crop_name: rice_local
+        variety_name: Hubei_rice_2
+        crop_start_date: 2020-07-01
+        crop_start_type: emergence
+        crop_end_date: 2020-10-30
+        crop_end_type: maturity
+        max_duration: 200
+    TimedEvents: 
+    -   event_signal: irrigate
+        name: Irrigation application table
+        comment: All irrigation amounts in cm
+        events_table:
+        - 2020-06-01: {amount:  15.54, efficiency: 0.7}
+        - 2020-07-01: {amount:  13.78, efficiency: 0.7}
+        - 2020-08-01: {amount:  16.32, efficiency: 0.7}
+        - 2020-09-01: {amount:  9.29, efficiency: 0.7}
+        - 2020-10-01: {amount:  8.01, efficiency: 0.7}
+        - 2020-11-01: {amount:  7.59, efficiency: 0.7}
+    -   event_signal: apply_npk
+        name: Timed N/P/K application table
+        comment: All fertilizer amounts in kg/ha
+        events_table:
+        - 2020-06-01: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
+        - 2020-08-01: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
+        - 2020-09-30: {N_amount: 0, P_amount: 0, K_amount: 0, N_recovery: 0.7, P_recovery: 0.7, K_recovery: 0.7}
+    StateEvents: null
+- 2020-12-31:

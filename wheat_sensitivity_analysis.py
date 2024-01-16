@@ -1,6 +1,5 @@
 import os
 import datetime
-import progressbar
 import pandas as pd
 from pcse.base import ParameterProvider  # 参数整合
 from pcse.fileinput import CABOFileReader  # 导入CABO格式数据
@@ -61,14 +60,14 @@ def wheat_sensitive(nutrition=True):
         with open(os.path.join(para_dir, lai_file_name), 'a') as fp2:
             fp2.writelines(['1', '\n', 'LAI', '\n', 'time = yes', '\n'])
             #  打开simlab输出的文档
-            with open(os.path.join(para_dir, 'EFAST_wheat0110.SAM'), 'r') as fp:
+            with open(os.path.join(para_dir, 'wheat.sam'), 'r') as fp:
                 fp.readline()  # 第一行
                 number = fp.readline()  # 第二行为生成参数个数
                 fp.readline()  # 变量个数
                 fp.readline()  # 0  此后开始读参数
                 fp2.write(str(number))
                 fp3.write(str(number))
-                for i in progressbar.ProgressBar()(range(int(number))):
+                for i in range(int(number)):
                     sim_paraments = list(map(float, fp.readline().split('\t')[:-1]))
                     # 更改参数
                     for items, value in change_data.items():
@@ -122,6 +121,9 @@ def wheat_sensitive(nutrition=True):
                     for j in date:
                         number += 1
                         fp2.writelines([str(number), ' ', str(df.loc[df.index == j, 'LAI'].iloc[0]), '\n'])
+                    if i % 100 == 0:
+                        print(i)
+
 
 if __name__ == '__main__':
     start = datetime.datetime.now()

@@ -1,162 +1,58 @@
-import pcse
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import os, sys
+import os
+import sys
 import copy
 import datetime as dt
-from pcse.fileinput import CABOFileReader, ExcelWeatherDataProvider
-from pcse.util import WOFOST71SiteDataProvider
-from pcse.base import ParameterProvider
-from pcse.fileinput import YAMLAgroManagementReader
-from pcse.models import Wofost71_WLP_FD
-plt.style.use("ggplot")
-print("This notebook was built with:")
-print("python version: %s " % sys.version)
-print("PCSE version: %s" %  pcse.__version__)
- 
-data_dir = r'D:\\wofost\\wofost_learn'
- 
-cropfile = os.path.join(data_dir, 'sug0601.crop')
-cropdata = CABOFileReader(cropfile)
- 
- 
-soilfile = os.path.join(data_dir, 'ec3.soil')
-soildata = CABOFileReader(soilfile)
-sitedata = WOFOST71SiteDataProvider(WAV=100, CO2=360)
- 
- 
-parameters = ParameterProvider(cropdata=cropdata, soildata=soildata,sitedata=sitedata)
- 
-agromanagement_file = os.path.join(data_dir, 'sugarbeet_calendar.agro')
-agromanagement = YAMLAgroManagementReader(agromanagement_file)
- 
- 
-wdp = ExcelWeatherDataProvider(os.path.join(data_dir,'nl1.xlsx'))
- 
- 
-wofost = Wofost71_WLP_FD(parameters, wdp, agromanagement)
-wofost1 = Wofost71_WLP_FD(parameters, wdp, agromanagement)
-wofost.run_till_terminate()
-df = pd.DataFrame(wofost.get_output()).set_index("day")
-df.to_excel("wofost_results_enkf.xlsx")
-output = wofost.get_output()
- 
- 
-variables_for_DA = ["LAI", "SM"]
-dates_of_observation = [dt.date(2006,4,9), dt.date(2006,5,2), dt.date(2006,6,17),
-                        dt.date(2006,8,14), dt.date(2006,9,12)]
-observed_lai = np.array([0.8, 0.9, 3.2, 4.3, 2.1])
-std_lai = observed_lai * 0.05 # Std. devation is estimated as 10% of observed value
-observed_sm = np.array([0.285, 0.26, 0.28, 0.18, 0.17])
-std_sm = observed_sm * 0.2 # Std. devation is estimated as 5% of observed value
-observations_for_DA = []
-# Pack them into a convenient format
-for d, lai, errlai, sm, errsm in zip(dates_of_observation, observed_lai, std_lai, observed_sm, std_sm):
-    observations_for_DA.append((d, {"LAI":(lai, errlai), "SM":(sm, errsm)}))
- 
-# #画图
-# fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(16,6))
-# df.LAI.plot(ax=axes[0], label="leaf area index")
-# axes[0].errorbar(dates_of_observation, observed_lai, yerr=std_lai, fmt="o")
-# df.SM.plot(ax=axes[1], label="rootzone soil moisture")
-# axes[1].errorbar(dates_of_observation, observed_sm, yerr=std_sm, fmt="o")
-# axes[0].set_title("Leaf area index")
-# axes[1].set_title("Volumetric soil moisture")
-# fig.autofmt_xdate()
-# plt.show()
- 
- 
-ensemble_size = 50
-np.random.seed(10000)
-# A container for the parameters that we will override
-override_parameters = {}
-#Initial conditions
-override_parameters["TDWI"] = np.random.normal(0.51, 0.05, (ensemble_size))
-override_parameters["WAV"] = np.random.normal(4.5, 1.5, (ensemble_size))
-# parameters
-override_parameters["SPAN"] = np.random.normal(35, 3 ,(ensemble_size))
-override_parameters["SMFCF"] = np.random.normal(0.30, 0.03 ,(ensemble_size))
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12,10))
-# Show the sample that was drawn
-for ax, (par, distr) in zip(axes.flatten(), override_parameters.items()):
-    ax.hist(distr)
-    ax.set_title(par)
- 
-ensemble = []
-for i in range(ensemble_size):
-    p = copy.deepcopy(parameters)
-    for par, distr in override_parameters.items():
-        p.set_override(par, distr[i])
-    member = Wofost71_WLP_FD(p, wdp, agromanagement)
-    ensemble.append(member)
-show_output = False
-count = 0
- 
-while count<5:
-    count+=1
-    day, obs = observations_for_DA.pop(0)
-    for member in ensemble:
-        member.run_till(day)
-    wofost1.run_till(day)
-    print("Ensemble now at day %s" % member.day)
-    print("%s observations left!" % len(observations_for_DA))
- 
-    collected_states = []
-    for member in ensemble:
-        t = {}
-        for state in variables_for_DA:
-            t[state] = member.get_variable(state)
-        collected_states.append(t)
-    df_A = pd.DataFrame(collected_states)
-    A = np.matrix(df_A).T
-    df_A if show_output else None
-    P_e = np.matrix(df_A.cov())
-    df_A.cov() if show_output else None
- 
- 
-    perturbed_obs = []
-    for state in variables_for_DA:
-        (value, std) = obs[state]
-        d = np.random.normal(value, std, (ensemble_size))
-        perturbed_obs.append(d)
-    df_perturbed_obs = pd.DataFrame(perturbed_obs).T
-    df_perturbed_obs.columns = variables_for_DA
-    D = np.matrix(df_perturbed_obs).T
-    R_e = np.matrix(df_perturbed_obs.cov())
-    df_perturbed_obs if show_output else None
-    # Here we compute the Kalman gain
-    H = np.identity(len(obs))
-    K1 = P_e * (H.T)
-    K2 = (H * P_e) * H.T
-    K = K1 * ((K2 + R_e).I)
-    K if show_output else None
- 
-    # Here we compute the analysed states
- 
-    Aa = A + K * (D - (H * A))
- 
-    df_Aa = pd.DataFrame(Aa.T, columns=variables_for_DA)
-    update = df_Aa.mean(axis=0)
-    print(update)
-    df_Aa if show_output else None
- 
-for member, new_states in zip(ensemble, df_Aa.itertuples()):
-    r1 = member.set_variable("LAI", new_states.LAI)
-    r2 = member.set_variable("SM", new_states.SM)
-for member in ensemble:
-    member.run_till_terminate()
-    results = []
-for member in ensemble:
-    member_df = pd.DataFrame(member.get_output()).set_index("day")
-    results.append(member_df)
-fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(16,16))
-for member_df in results:
-    member_df["LAI"].plot(style="k:", ax=axes[0])
-    member_df["SM"].plot(style="k:", ax=axes[1])
-axes[0].errorbar(dates_of_observation, observed_lai, yerr=std_lai, fmt="o")
-axes[1].errorbar(dates_of_observation, observed_sm, yerr=std_sm, fmt="o")
-axes[0].set_title("Leaf area index")
-axes[1].set_title("Volumetric soil moisture")
-fig.autofmt_xdate()
-plt.show()
+import pandas as pd
+import numpy as np
+import matplotlib
+matplotlib.style.use("ggplot")
+import matplotlib.pyplot as plt
+from pcse.base import ParameterProvider  # 参数整合
+from pcse.fileinput import CABOFileReader  # 导入CABO格式数据
+from pcse.fileinput import ExcelWeatherDataProvider  # 导入Excel气象数据
+from pcse.fileinput import YAMLAgroManagementReader  # 导入YAML管理数据
+from pcse.fileinput import YAMLCropDataProvider  # 导入YAML作物模型
+
+# --------------------------------------------------------
+#                     基础参数设置
+# --------------------------------------------------------
+# 模型
+from pcse.models import Wofost80_NWLP_FD_beta
+from pcse.models import Wofost80_PP_beta
+# 导入通用的实用工具函数
+from utils import st_loc  # 规范化经纬度至0.5°
+from utils import argo_w_modify  # 修改施肥灌溉等管理参数
+from utils import argo_r_modify  # 修改施肥灌溉等管理参数
+from utils import set_site_data  # 设置站点数据
+
+
+def enkf_w():
+    # 路径设置
+    work_dir = os.getcwd()
+    data_dir = os.path.join(work_dir, "workspace")  # 工作路径
+    weather_dir = os.path.join(work_dir, "parameters", "meteorological_parameter")  # 气象数据路径
+    crop_parameter_dir = os.path.join(work_dir, "parameters", "crop_parameter")  # 作物文件路径
+    soil_parameter_dir = os.path.join(work_dir, "parameters", "soil_parameter")  # 土壤文件路径
+    management_parameter_dir = os.path.join(work_dir, "parameters", "management_parameter")  # 管理文件路径
+    data_base_info = pd.read_excel(os.path.join(data_dir, 'sample_point_test0110.xlsx'), sheet_name='Sheet1')
+    for index, row in data_base_info.iterrows():  # 逐行读取点位信息并模拟
+        crop_name_winter = row['crop_name_winter']  # 作物名称
+        variety_name_winter = row['variety_name_winter']  # 作物种类名称
+        crop_data = YAMLCropDataProvider(crop_parameter_dir)  # 作物参数读取
+        soil_data = CABOFileReader(os.path.join(soil_parameter_dir, row['soil_file'] + '.new'))  # 土壤参数读取
+        weather_data = ExcelWeatherDataProvider(
+            os.path.join(weather_dir, 'NASA天气文件lat={0:.1f},lon={1:.1f}.xlsx'.  # 气象参数
+                         format(st_loc(row['lat']), st_loc(row['lon']))))
+        if crop_name_winter == 'wheat_local':
+            crop_data.set_active_crop(crop_name_winter, variety_name_winter)  # 设置当前活动作物
+            parameters = ParameterProvider(crop_data, soil_data,
+                                           set_site_data(row['NAVAILI'], row['PAVAILI'], row['KAVAILI']))  # 参数打包
+            agromanagement = argo_w_modify(
+                YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_w.yaml')),
+                row)  # 管理参数读取
+            wf = Wofost80_NWLP_FD_beta(parameters, weather_data, agromanagement)  # 定义模型
+            wf.run_till_terminate()  # 运行模型直到终止
+            output = pd.DataFrame(wf.get_output()).set_index('day')  # 获取输出结果
+            file_name = 'wheat_result' + row['序号'] + '.xlsx'  # 输出excel表的文件名
+            output.to_excel(os.path.join(data_dir, file_name))  # 将结果输出为excel表
+        crop_name_summer = row['crop_name_summer']  # 作物名称

@@ -163,7 +163,7 @@ CropParameters:
             # INITIAL STATES
             #
             TDWI:
-            -  200.00
+            -  220.00
             - initial total crop dry weight
             - ['kg.ha-1']
             RGRLAI:
@@ -175,7 +175,7 @@ CropParameters:
             #
             SLATB:
             - [0.00, 0.00212,
-               0.50, 0.00212,
+               0.50, 0.00120,
                2.00, 0.00212]
             - specific leaf area as a function of DVS
             - ['-', 'ha.kg-1']
@@ -189,7 +189,7 @@ CropParameters:
             - specific stem area as function of DVS
             - ['-', 'ha.kg-1']
             SPAN:
-            - 27
+            - 30.15
             - life span of leaves growing at 35 Celsius
             - ['d']
             TBASE:
@@ -200,7 +200,7 @@ CropParameters:
             # CO2 ASSIMILATION
             #
             KDIFTB:
-            - [0.00, 0.600,
+            - [0.00, 0.800,
                2.00, 0.600]
             - extinction coefficient for diffuse visible light as function of DVS
             - ['-', '-']
@@ -210,7 +210,7 @@ CropParameters:
             - initial light-use efficiency single leaf as function of daily mean temperature
             - ['C', 'kg.ha-1.hr-1.J-1.m2.s1']
             AMAXTB:
-            - [0.00, 35.83,
+            - [0.00, 36,
                1.00, 35.83,
                1.30, 35.83,
                2.00, 4.48]
@@ -268,7 +268,7 @@ CropParameters:
             - relative maintenance respiration rate of storage organs
             - ['d-1']
             RMR:
-            - 0.0150
+            - 0.0100
             - relative maintenance respiration rate of roots
             - ['d-1']
             RMS:
@@ -284,11 +284,11 @@ CropParameters:
             # PARTITIONING
             #
             FRTB:
-            - [0.000, 0.500,
+            - [0.000, 0.400,
                0.100, 0.500,
                0.200, 0.400,
                0.350, 0.220,
-               0.400, 0.170,
+               0.400, 0.270,
                0.500, 0.130,
                0.700, 0.070,
                0.900, 0.030,
@@ -569,66 +569,6 @@ CropParameters:
              - Maximum rate of daily potassium uptake
              - ['kg.ha-1.d-1']
     Varieties:
-        Winter_wheat_101:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region: Northern Ireland, Scotland, northern UK (R71), Denmark    
-            DLO:
-            - 16.8
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  543
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            - 1194
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            - 10.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 49.0
-            - Saturated vernalization requirement
-            - ['d']
-        Winter_wheat_102:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region: Ireland, central en southern UK, Netherlands, northern Germany
-            DLO:
-            - 16.3
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  853
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  975
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  9.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 44.0
-            - Saturated vernalization requirement
-            - ['d']
         Winter_wheat_103:
             <<: *winterwheat
             Metadata:
@@ -640,11 +580,11 @@ CropParameters:
             - optimum daylength for development
             - ['hr']
             TSUM1:
-            -  958
+            -  980
             - temperature sum from emergence to anthesis
             - ['C.d']
             TSUM2:
-            -  852
+            -  960
             - temperature sum from anthesis to maturity
             - ['C.d']
             RGRLAI:
@@ -657,205 +597,5 @@ CropParameters:
             - ['d']
             VERNSAT:
             - 52.0
-            - Saturated vernalization requirement
-            - ['d']
-        Winter_wheat_104:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region:  Central Germany, northern France
-            DLO:
-            - 15.8
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  706
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  950
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  8.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 41.0
-            - Saturated vernalization requirement
-            - ['d']
-        Winter_wheat_105:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region: France, northern and central Italy, northern Spain, northern Portugal
-            DLO:
-            - 15.3
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  706
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  975
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  7.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 37.0
-            - Saturated vernalization requirement
-            - ['d']
-        Winter_wheat_106:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region: southern Italy, central and eastern Spain, southern Portugal
-            DLO:
-            - 14.8
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  852
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  950
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  5.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 25.0
-            - Saturated vernalization requirement
-            - ['d']
-        Winter_wheat_107:
-            <<: *winterwheat
-            Metadata:
-                <<: *meta
-                Coverage:
-                   Region: Southern Spain and Central and Southern Greece
-            DLO:
-            - 14.6
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            - 1031
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  928
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  1.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            -  5.0
-            - Saturated vernalization requirement
-            - ['d']
-        bermude:
-            <<: *winterwheat
-            Metadata: 
-                <<: *meta
-                Date: 2022-07-12
-                Subject: crop parameters for wheat cultivar bermude
-                Description: Crop specific parameters for variety 'bermude'. This variety is a regional variety 
-                    mainly grown in Northern and Central France. Note that only TSUM1 was calibrated, TSUM2 was
-                    taken from Winterwheat_104.
-                Source: https://doi.org/10.1101/708578 
-                Coverage:
-                    Region: Central to Northern France
-                    Temporal: Variety was introduced in 1995
-                    Sowing: september to november
-                    Harvesting: end of July to early august
-                Keyword: wheat, WOFOST, France, Bermude
-            DLO:
-            - 15.8
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  899
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  950
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  8.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 41.0
-            - Saturated vernalization requirement
-            - ['d']
-        apache:
-            <<: *winterwheat
-            Metadata: 
-                <<: *meta
-                Date: 2022-07-12
-                Subject: crop parameters for wheat cultivar apache
-                Description: Crop specific parameters for variety 'apache'. This variety is a common variety grown
-                    throughout France and Central Europes. Note that only TSUM1 was calibrated, TSUM2 was taken
-                    from Winterwheat_104.
-                Source: https://doi.org/10.1101/708578 
-                Coverage:
-                    Region: France, Central Europe
-                    Temporal: Variety was introduced in 1995
-                    Sowing: september to november
-                    Harvesting: end of July to early august
-                Keyword: wheat, WOFOST, France, Apache
-            DLO:
-            - 15.8
-            - optimum daylength for development
-            - ['hr']
-            TSUM1:
-            -  899
-            - temperature sum from emergence to anthesis
-            - ['C.d']
-            TSUM2:
-            -  950
-            - temperature sum from anthesis to maturity
-            - ['C.d']
-            RGRLAI:
-            - 0.0082
-            - maximum relative increase in LAI
-            - ['d-1']
-            VERNBASE:
-            -  8.0
-            - Base vernalization requirement
-            - ['d']
-            VERNSAT:
-            - 41.0
             - Saturated vernalization requirement
             - ['d']

@@ -50,12 +50,12 @@ for index, row in data_base_info.iterrows():  # 逐行读取点位信息并模�
         file_name = 'wheat_result' + row['序号'] + '.xlsx'  # 输出excel表的文件名
         output.to_excel(os.path.join(data_dir, file_name))  # 将结果输出为excel表
     crop_name_summer = row['crop_name_summer']  # 作物名称
-    variety_name_summer = row['variety_name_summer']  # 作物种类名称
+    variety_name_summer = "Hubei_rice_1"  # 作物种类名称
     if crop_name_summer == 'rice_local':
         crop_data.set_active_crop(crop_name_summer, variety_name_summer)  # 设置当前活动作物
         parameters = ParameterProvider(crop_data, soil_data,
                                        set_site_data(row['NAVAILI'], row['PAVAILI'], row['KAVAILI']))  # 参数打包
-        agromanagement = argo_r_modify(YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_r.yaml')),
+        agromanagement = argo_r_modify(YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_r1.yaml')),
                                        row)  # 管理参数读取
         wf = Wofost80_NWLP_FD_beta(parameters, weather_data, agromanagement)  # 定义模型
         wf.run_till_terminate()  # 运行模型直到终止
