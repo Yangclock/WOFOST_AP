@@ -1,5 +1,4 @@
 import os
-import datetime
 import pandas as pd
 import numpy as np
 import nlopt
@@ -15,7 +14,6 @@ from pcse.fileinput import YAMLCropDataProvider  # 导入YAML作物模型
 # --------------------------------------------------------
 # 模型
 from pcse.models import Wofost80_NWLP_FD_beta
-from pcse.models import Wofost80_PP_beta
 # 导入通用的实用工具函数
 from utils import st_loc  # 规范化经纬度至0.5°
 from utils import argo_w_modify  # 修改施肥灌溉等管理参数

@@ -18,5 +18,3 @@ if __name__ == '__main__':
     plt.plot(res_kalman, 'b-', label='kalman estimate')  # kl 估计值
     plt.legend()
     plt.show()
-
-
