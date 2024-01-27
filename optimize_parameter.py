@@ -235,8 +235,8 @@ def optimize_wheat():
     lai_ob_df = pd.DataFrame(lai_ob, index=lai_modis.iloc[:, 0])
     lai_ob_df.columns = ["LAI"]
 
-    TSUM1_range = [800, 1200]
-    TSUM2_range = [600, 1000]
+    TSUM1_range = [500, 800]
+    TSUM2_range = [1000, 1400]
     TDWI_range = [100, 220]
     SLATB1_range = [0.0012, 0.00212]
     SLATB3_range = [0.0012, 0.00212]
@@ -257,10 +257,10 @@ def optimize_wheat():
     opt.set_upper_bounds(
         [TSUM1_range[1], TSUM2_range[1], TDWI_range[1], SLATB1_range[1], SLATB3_range[1], AMAXTB1_range[1],
          SPAN_range[1], KDIFTB1_range[1], FRTB1_range[1], FRTB9_range[1], FLTB1_range[1], RMR_range[1]])
-    opt.set_initial_step([20, 20, 6, 0.000046, 0.000046, 0.3, 1, 0.02, 0.01, 0.003, 0.005, 0.0005])
+    opt.set_initial_step([15, 20, 6, 0.000046, 0.000046, 0.3, 1, 0.02, 0.01, 0.003, 0.005, 0.0005])
     opt.set_maxeval(3000)
     opt.set_ftol_rel(0.5)
-    firstguess = [960, 850, 150, 0.0015, 0.0015, 32, 28, 0.6, 0.45, 0.27, 0.6, 0.015]
+    firstguess = [540, 1200, 150, 0.0015, 0.0015, 32, 28, 0.6, 0.45, 0.27, 0.6, 0.015]
     x = opt.optimize(firstguess)
     print("\noptimum at TSUM1: %s, TSUM2: %s, TDWI: %s, SLATB1: %s, SLATB3: %s, AMAXTB1: %s"
           ", SPAN: %s, KDIFTB1: %s, FRTB1: %s, FRTB9: %s, FLTB1: %s, RMR: %s" %
@@ -460,4 +460,4 @@ def optimize_rice2():
 
 
 if __name__ == "__main__":
-    optimize_rice2()
+    optimize_wheat()

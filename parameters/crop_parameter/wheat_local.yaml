@@ -580,11 +580,11 @@ CropParameters:
             - optimum daylength for development
             - ['hr']
             TSUM1:
-            -  980
+            -  600
             - temperature sum from emergence to anthesis
             - ['C.d']
             TSUM2:
-            -  960
+            -  1200
             - temperature sum from anthesis to maturity
             - ['C.d']
             RGRLAI:
