@@ -30,19 +30,36 @@ def main():
     work_dir = os.getcwd()
     data_dir = os.path.join(work_dir, "workspace")  # 工作路径
     re_dir = os.path.join(data_dir, "result")
+    weather_dir = os.path.join(work_dir, "parameters", "meteorological_parameter")  # 气象数据路径
+    crop_parameter_dir = os.path.join(work_dir, "parameters", "crop_parameter")  # 作物文件路径
+    soil_parameter_dir = os.path.join(work_dir, "parameters", "soil_parameter")  # 土壤文件路径
+    management_parameter_dir = os.path.join(work_dir, "parameters", "management_parameter")  # 管理文件路径
     data_base_info = pd.read_excel(os.path.join(data_dir, 'sample_point_test0125.xlsx'), sheet_name='Sheet1')
     # 汇总所有样点结果，win_TWSO、win_TAGP、win_RPTAKE、sum_TWSO、sum_TAGP、sum_RPTAKE、PAVAIL
     ap_summary_output = pd.DataFrame(
         columns=["BSM", "win_TWSO", "win_TAGP", "win_RPUPTAKE", "sum_TWSO", "sum_TAGP", "sum_RPUPTAKE", "PAVAIL"],
         index=data_base_info["标识码"])
     try:
-        multi_data = []
+        multi_row, multi_crop, multi_soil, multi_weather = [], [], [], []
+
         for index, row in data_base_info.iterrows():  # 逐行读取点位信息并模拟
-            multi_data.append(row)
-        worker_pool = Pool(1)
+            multi_row.append(row)
+            soil_data = CABOFileReader(os.path.join(soil_parameter_dir, row['soil_file'] + '.new'))  # 土壤参数读取
+            multi_soil.append(soil_data)
+            weather_data = ExcelWeatherDataProvider(
+                os.path.join(weather_dir, 'NASA天气文件lat={0:.1f},lon={1:.1f}.xlsx'.  # 气象参数
+                             format(st_loc(row['lat']), st_loc(row['lon']))))
+            multi_weather.append(weather_data)
+        argo_w = YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_w.yaml'))
+        argo_r1 = YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_r1.yaml'))
+        argo_r2 = YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_r2.yaml'))
+        multi_argo = [argo_w, argo_r1, argo_r2]
+        multi_crop = YAMLCropDataProvider(crop_parameter_dir)  # 作物参数读取
+        worker_pool = Pool(12)
         result_list = []
-        for i in multi_data:
-            result_list.append(worker_pool.apply_async(multi_enkf, (i,)))
+        for i in range(len(multi_row)):
+            result_list.append(worker_pool.apply_async(multi_enkf, (multi_row[i], multi_crop, multi_soil[i],
+                                                                    multi_weather[i], multi_argo)))
         worker_pool.close()
         worker_pool.join()
         for result in result_list:
@@ -51,39 +68,26 @@ def main():
     except Exception:
         ap_summary_output.to_excel(os.path.join(re_dir, "EnKF最终结果暂存.xlsx"))
         print("\n出错前的结果已缓存")
-    ap_summary_output.to_excel(os.path.join(re_dir, "EnKF多线程最终结果.xlsx"))
+    ap_summary_output.to_excel(os.path.join(re_dir, "EnKF并行计算结果.xlsx"))
 
 
-def multi_enkf(multi_data):
+def multi_enkf(row, crop_data, soil_data, weather_data, argo):
     # 路径设置
-    work_dir = os.getcwd()
-    weather_dir = os.path.join(work_dir, "parameters", "meteorological_parameter")  # 气象数据路径
-    crop_parameter_dir = os.path.join(work_dir, "parameters", "crop_parameter")  # 作物文件路径
-    soil_parameter_dir = os.path.join(work_dir, "parameters", "soil_parameter")  # 土壤文件路径
-    management_parameter_dir = os.path.join(work_dir, "parameters", "management_parameter")  # 管理文件路径
     ensemble_size = 50  # 设置集合大小
     np.random.seed(10000)  # 设置随机数的种子以便获得相同的结果
-    index = multi_data["标识码"]
-    row = multi_data
+    index = row["标识码"]
     row_output = pd.DataFrame(
         columns=["BSM", "win_TAGP", "win_TWSO", "win_RPUPTAKE", "sum_TAGP", "sum_TWSO", "sum_RPUPTAKE", "PAVAIL"],
         index=[index])
     row_output["BSM"] = row["标识码"]
     crop_name_winter = row['crop_name_winter']  # 作物名称
     variety_name_winter = row['variety_name_winter']  # 作物种类名称
-    crop_data = YAMLCropDataProvider(crop_parameter_dir)  # 作物参数读取
-    soil_data = CABOFileReader(os.path.join(soil_parameter_dir, row['soil_file'] + '.new'))  # 土壤参数读取
-    weather_data = ExcelWeatherDataProvider(
-        os.path.join(weather_dir, 'NASA天气文件lat={0:.1f},lon={1:.1f}.xlsx'.  # 气象参数
-                     format(st_loc(row['lat']), st_loc(row['lon']))))
     # 夏收作物模拟
     if crop_name_winter == 'wheat_local':
         crop_data.set_active_crop(crop_name_winter, variety_name_winter)  # 设置当前活动作物
         parameters = ParameterProvider(crop_data, soil_data,
                                        set_site_data(row['NAVAILI'], row['PAVAILI'], row['KAVAILI']))  # 参数打包
-        agromanagement = argo_w_modify(
-            YAMLAgroManagementReader(os.path.join(management_parameter_dir, 'argo_w.yaml')),
-            row)  # 管理参数读取
+        agromanagement = argo_w_modify(argo[0], row)  # 管理参数读取
         # 添加观测数据
         variables_for_DA = ["LAI"]
         dates_of_observation = row[38:55].index.tolist()
@@ -168,8 +172,7 @@ def multi_enkf(multi_data):
     if variety_name_summer == 'Hubei_rice_1':
         crop_data.set_active_crop(crop_name_summer, variety_name_summer)  # 设置当前活动作物
         parameters = ParameterProvider(crop_data, soil_data, set_site_data(an, ap, ak))  # 参数打包
-        agromanagement = argo_r_modify(YAMLAgroManagementReader(os.path.join(management_parameter_dir,
-                                                                             'argo_r1.yaml')), row)  # 管理参数读取
+        agromanagement = argo_r_modify(argo[1], row)  # 管理参数读取
         # 添加观测数据
         variables_for_DA = ["LAI"]
         dates_of_observation = row[55:62].index.tolist()
@@ -248,8 +251,7 @@ def multi_enkf(multi_data):
     if variety_name_summer == 'Hubei_rice_2':
         crop_data.set_active_crop(crop_name_summer, variety_name_summer)  # 设置当前活动作物
         parameters = ParameterProvider(crop_data, soil_data, set_site_data(an, ap, ak))  # 参数打包
-        agromanagement = argo_r_modify(YAMLAgroManagementReader(os.path.join(management_parameter_dir,
-                                                                             'argo_r2.yaml')), row)  # 管理参数读取
+        agromanagement = argo_r_modify(argo[2], row)  # 管理参数读取
         # 添加观测数据
         variables_for_DA = ["LAI"]
         dates_of_observation = row[55:62].index.tolist()

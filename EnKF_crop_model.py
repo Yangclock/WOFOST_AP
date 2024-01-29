@@ -36,7 +36,7 @@ def enkf():
 # --------------------------------------------------------
 #                     WOFOST运行
 # --------------------------------------------------------
-    data_base_info = pd.read_excel(os.path.join(data_dir, 'sample_point.xlsx'), sheet_name='Sheet1')
+    data_base_info = pd.read_excel(os.path.join(data_dir, 'sample_point_test0125.xlsx'), sheet_name='Sheet1')
     # 汇总所有样点结果，win_TWSO、win_TAGP、win_RPTAKE、sum_TWSO、sum_TAGP、sum_RPTAKE、PAVAIL
     ap_summary_output = pd.DataFrame(
         columns=["BSM", "win_TWSO", "win_TAGP", "win_RPUPTAKE", "sum_TWSO", "sum_TAGP", "sum_RPUPTAKE", "PAVAIL"],
@@ -313,7 +313,7 @@ def enkf():
     except Exception:
         ap_summary_output.to_excel(os.path.join(re_dir, "EnKF最终结果暂存.xlsx"))
         print("\n出错前的结果已缓存")
-    ap_summary_output.to_excel(os.path.join(re_dir, "EnKF多线程最终结果.xlsx"))
+    ap_summary_output.to_excel(os.path.join(re_dir, "EnKF最终结果test.xlsx"))
 
 
 if __name__ == "__main__":
